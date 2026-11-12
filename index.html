@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tihar Lights | Five days, five stories</title>
+  <meta name="description" content="Light five diyos and walk through the five days of Tihar.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Mukta:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <a class="logo" href="#top">Tihar Lights</a>
+    <nav>
+      <a href="#days">The five days</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO: the interactive moment -->
+    <section class="hero">
+      <p class="nepali">तिहार</p>
+      <h1>Light the five diyos</h1>
+      <p class="lead">Tap each diyo to light it. Once all five glow, Tihar begins.</p>
+
+      <div class="diyos" id="diyos">
+        <button class="diyo" aria-pressed="false" aria-label="Light diyo 1"><span class="flame"></span><span class="bowl"></span></button>
+        <button class="diyo" aria-pressed="false" aria-label="Light diyo 2"><span class="flame"></span><span class="bowl"></span></button>
+        <button class="diyo" aria-pressed="false" aria-label="Light diyo 3"><span class="flame"></span><span class="bowl"></span></button>
+        <button class="diyo" aria-pressed="false" aria-label="Light diyo 4"><span class="flame"></span><span class="bowl"></span></button>
+        <button class="diyo" aria-pressed="false" aria-label="Light diyo 5"><span class="flame"></span><span class="bowl"></span></button>
+      </div>
+
+      <p class="count" id="count" aria-live="polite">0 of 5 lit</p>
+    </section>
+
+    <!-- THE FIVE DAYS: a real sequence, so Day 1 to Day 5 fits -->
+    <section class="days" id="days">
+      <h2>Five days, five stories</h2>
+      <ol class="timeline">
+        <li>
+          <span class="day">Day 1</span>
+          <div>
+            <h3>Kag Tihar <small>काग तिहार</small></h3>
+            <p>Crows are the messengers of the festival. Families leave food on the roof and listen for their calls at dawn.</p>
+          </div>
+        </li>
+        <li>
+          <span class="day">Day 2</span>
+          <div>
+            <h3>Kukur Tihar <small>कुकुर तिहार</small></h3>
+            <p>Dogs are thanked for their loyalty. They get a marigold garland, a red tika on the forehead, and a special meal.</p>
+          </div>
+        </li>
+        <li>
+          <span class="day">Day 3</span>
+          <div>
+            <h3>Laxmi Puja <small>लक्ष्मी पूजा</small></h3>
+            <p>Cows are honoured in the morning. At night, every home glows with diyos and rangoli to welcome Goddess Laxmi. Children sing Deusi-Bhailo from door to door.</p>
+          </div>
+        </li>
+        <li>
+          <span class="day">Day 4</span>
+          <div>
+            <h3>Govardhan Puja <small>गोवर्धन पूजा</small></h3>
+            <p>Oxen are worshipped for their hard work in the fields. In the Newar community, this is also Mha Puja, a day to honour your own self.</p>
+          </div>
+        </li>
+        <li>
+          <span class="day">Day 5</span>
+          <div>
+            <h3>Bhai Tika <small>भाइ टीका</small></h3>
+            <p>Sisters put a seven-colour tika on their brothers' foreheads and pray for their long life. Brothers give gifts in return.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+      <h2>Why light a diyo?</h2>
+      <p>In Tihar, light pushes the dark away. A small flame in every window tells the whole street that someone is welcome here.</p>
+      <p class="greeting" id="greeting">Happy Tihar!</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Made for the Tihar &amp; Chhath festive web challenge.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
