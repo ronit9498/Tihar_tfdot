@@ -1,41 +1,41 @@
-/* ---------- 1. Colors and fonts (change these to restyle everything) ---------- */
 :root {
-  --ink:    #000;      /* the dark page before the switch */
-  --maroon: #4a0710;   /* page color once lit */
-  --red:    #b3182a;   /* the red glow in the middle */
-  --gold:   #ffc857;
-  --amber:  #e8961a;
-  --cream:  #fff1d6;
-  --muted:  #f0d2b0;
+  --maroon: #4a0710;
+  --red: #b3182a;
+  --gold: #ffc857;
+  --amber: #e8961a;
+  --cream: #fff1d6;
+  --muted: #f0d2b0;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--ink);
+  background: #000;
   color: var(--cream);
   font-family: "Mukta", system-ui, sans-serif;
-  font-size: 1.1rem;
-  line-height: 1.7;
-  transition: background-color .2s ease;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  transition: background-color .6s;
 }
 body.lit { background-color: var(--maroon); }
 
-h2, h3, .greet { font-family: "Yatra One", Georgia, serif; font-weight: 400; }
+h2, h3, .greet, .nm { font-family: "Yatra One", Georgia, serif; font-weight: 400; }
 
-/* ---------- 2. The scene ---------- */
 .scene {
   position: relative;
   background: #000;
   min-height: 100vh;
   min-height: 100svh;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 78px;
   overflow: hidden;
+  transition: background-color 1.6s ease .3s;
 }
+body.lit .scene { background: var(--maroon); }
 
-/* Red glow + gold wash from the top. Both fade in when lit. */
 .scene::before,
 .scene::after {
   content: "";
@@ -45,33 +45,66 @@ h2, h3, .greet { font-family: "Yatra One", Georgia, serif; font-weight: 400; }
   transition: opacity 1.6s ease .4s;
   pointer-events: none;
 }
-.scene::before { background: radial-gradient(ellipse at 50% 45%, var(--red) 0%, #7a0c18 45%, transparent 85%); }
-.scene::after  { background: linear-gradient(to bottom, rgba(255,200,87,.22), transparent 40%); }
+.scene::before { background: radial-gradient(ellipse 90% 44% at 50% 28%, var(--red) 0%, #7a0c18 50%, rgba(74, 7, 16, 0) 100%); }
+.scene::after { background: linear-gradient(to bottom, rgba(255, 200, 87, .18), transparent 30%); }
 body.lit .scene::before,
 body.lit .scene::after { opacity: 1; }
+body:not(.lit) .scene::before,
+body:not(.lit) .scene::after,
+body:not(.lit) .lights { display: none; }
+
+.mdl {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  opacity: 0;
+  transition: opacity 1.6s ease .8s;
+  pointer-events: none;
+}
+body.lit .mdl { opacity: .3; }
+.mdl.l { left: -110px; top: 170px; }
+.mdl.r { right: -110px; top: 170px; }
+.mdl.c { left: 50%; top: 262px; width: 156px; height: 156px; margin-left: -78px; }
+
+.spin { transform-origin: 100px 100px; animation: spin 120s linear infinite; }
+.spin.rev { animation-direction: reverse; animation-duration: 90s; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
 .lights { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+#fx { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 
-.center { position: relative; z-index: 2; width: 100%; text-align: center; }
+.center {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
-/* ---------- 3. The light switch ---------- */
 .switch {
+  flex: none;
+  display: block;
   position: relative;
   width: 48px;
+  min-width: 48px;
   height: 76px;
+  min-height: 76px;
+  padding: 0;
   border-radius: 8px;
   border: 1px solid #3a3641;
   background: linear-gradient(#27242d, #17151b);
-  box-shadow: 0 10px 30px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.06);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .6);
   cursor: pointer;
 }
-.switch::before {            /* the dark slot */
+.switch::before {
   content: "";
   position: absolute;
   inset: 7px;
   border-radius: 5px;
   background: #0c0a0f;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,.8);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, .8);
 }
 .switch:focus-visible { outline: 3px solid var(--gold); outline-offset: 6px; }
 
@@ -83,95 +116,177 @@ body.lit .scene::after { opacity: 1; }
   height: 30px;
   border-radius: 5px;
   background: linear-gradient(#4a4552, #35313c);
-  transform: translateY(32px);            /* switch is DOWN = off */
+  transform: translateY(32px);
   transition: transform .25s ease, background .4s ease;
 }
 body.lit .rocker {
-  transform: translateY(0);               /* switch is UP = on */
+  transform: translateY(0);
   background: linear-gradient(var(--gold), var(--amber));
-  box-shadow: 0 0 18px rgba(255,200,87,.7);
+  box-shadow: 0 0 18px rgba(255, 200, 87, .7);
 }
 
-/* ---------- 4. Text under the switch ---------- */
-.caption { position: relative; height: 5.5rem; margin-top: 28px; }
-.hint, .greet { position: absolute; inset: 0 -40px auto; transition: opacity .8s ease; }
-.hint  { color: #6f6878; opacity: 1; }
-.greet { font-size: 2.2rem; line-height: 1.2; color: var(--gold); opacity: 0; text-shadow: 0 0 24px rgba(255,200,87,.6); }
-.greet span { display: block; font-size: 1.2rem; color: var(--muted); text-shadow: none; }
-body.lit .hint  { opacity: 0; }
+.caption { position: relative; height: 52px; margin-top: 18px; width: 100%; }
+.hint, .greet { position: absolute; left: 0; right: 0; top: 0; transition: opacity .8s ease; }
+.hint { color: #6f6878; opacity: 1; }
+.greet {
+  font-size: 2.1rem;
+  line-height: 1.3;
+  color: var(--gold);
+  opacity: 0;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, .7);
+}
+body.lit .hint { opacity: 0; }
 body.lit .greet { opacity: 1; transition-delay: .9s; }
 
-.cue {
-  position: absolute;
-  bottom: 22px;
+.diyos {
+  position: relative;
   z-index: 2;
-  color: var(--muted);
-  font-size: .95rem;
+  margin-top: auto;
+  margin-bottom: 6px;
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 0 18px;
+  opacity: 0;
+  transition: opacity 1s ease .7s;
+}
+body.lit .diyos { opacity: 1; }
+
+.dy { display: block; width: 44px; height: 40px; }
+.dy:nth-child(2), .dy:nth-child(4) { margin-bottom: 10px; }
+.dy .bowl { fill: #8a4a14; stroke: #ffc857; stroke-width: 1; }
+.dy .glow { fill: #ffc857; opacity: .2; }
+.dy .fl {
+  fill: #ffe08a;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: flick 1.3s ease-in-out infinite alternate;
+}
+.dy:nth-child(2) .fl { animation-delay: -.4s; }
+.dy:nth-child(3) .fl { animation-delay: -.8s; }
+.dy:nth-child(4) .fl { animation-delay: -.2s; }
+.dy:nth-child(5) .fl { animation-delay: -.6s; }
+@keyframes flick {
+  from { transform: scale(1, 1) skewX(-3deg); }
+  to { transform: scale(.86, 1.14) skewX(3deg); }
+}
+
+.tabs {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 14px 16px 22px;
   opacity: 0;
   pointer-events: none;
   transition: opacity .8s ease;
+  scrollbar-width: none;
 }
-body.lit .cue { opacity: 1; pointer-events: auto; transition-delay: 1.6s; }
+.tabs::-webkit-scrollbar { display: none; }
+.tabs .tab:first-child { margin-left: auto; }
+.tabs .tab:last-child { margin-right: auto; }
+body.lit .tabs { opacity: 1; pointer-events: auto; transition-delay: 1.2s; }
 
-/* ---------- 5. The string lights (drawn by script.js) ---------- */
-.wire { fill: none; stroke: #000; stroke-opacity: .55; stroke-width: 1.6; }
-
-.halo { fill: url(#glow); opacity: 0; transition: opacity .3s; }
-.core { fill: #3b2a12; transition: fill .3s; }
-
-body:not(.lit) .scene::before,
-body:not(.lit) .scene::after,
-body:not(.lit) .lights {
-  display: none;
+.tab {
+  all: unset;
+  box-sizing: border-box;
+  display: block;
+  flex: none;
+  width: 118px;
+  height: 156px;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  scroll-snap-align: center;
+  border: 1px solid rgba(255, 200, 87, .4);
+  box-shadow: 0 14px 22px rgba(0, 0, 0, .45);
+  animation: bob 4s ease-in-out infinite alternate;
+}
+.tab:nth-child(2) { animation-delay: -.8s; }
+.tab:nth-child(3) { animation-delay: -1.6s; }
+.tab:nth-child(4) { animation-delay: -2.4s; }
+.tab:nth-child(5) { animation-delay: -3.2s; }
+.tab:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.tab.on { border: 2px solid var(--gold); }
+@keyframes bob {
+  from { transform: translateY(0); }
+  to { transform: translateY(-8px); }
 }
 
-body.lit .halo { opacity: 1; transition: opacity .6s var(--d); }
-body.lit .core { fill: #ffe08a; transition: fill .5s var(--d); }
+.tab svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.tab .lb {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 22px 8px 9px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, .85));
+  text-align: left;
+}
+.tab .d { display: block; font-size: .75rem; color: var(--gold); line-height: 1.2; }
+.tab .nm { display: block; font-size: .95rem; color: var(--cream); line-height: 1.2; }
 
-/* Hanging strands sway gently once lit */
+.wire { fill: none; stroke: #3a2410; stroke-width: 1.5; }
+body.lit .wire { stroke: #2a0a08; }
+.cap { fill: #3a2a14; }
+.glass { fill: #3b2a12; transition: fill .5s var(--d); }
+.shine { fill: #fff; opacity: 0; transition: opacity .5s var(--d); }
+.h1, .h2 { fill: var(--c); opacity: 0; transition: opacity .6s var(--d); }
+body.lit .glass { fill: var(--c); }
+body.lit .shine { opacity: .7; }
+body.lit .h1 { opacity: .14; animation: twinkle 3s ease-in-out infinite alternate; animation-delay: var(--t); }
+body.lit .h2 { opacity: .28; animation: twinkle 3s ease-in-out infinite alternate; animation-delay: var(--t); }
+@keyframes twinkle { from { opacity: .55; } to { opacity: 1; } }
+
 body.lit .drop { animation: sway var(--dur, 6s) ease-in-out infinite alternate; }
 @keyframes sway {
-  from { transform: rotate(-1.4deg); }
-  to   { transform: rotate(1.4deg); }
+  from { transform: rotate(-1.2deg); }
+  to { transform: rotate(1.2deg); }
 }
 
-/* ---------- 6. Content below (hidden until lit) ---------- */
 .after-lit { display: none; }
 body.lit .after-lit { display: block; animation: rise 1s ease both; }
-@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-
-.days { max-width: 720px; margin: 0 auto; padding: 10vh 6vw; }
-h2 { font-size: clamp(1.8rem, 5vw, 2.6rem); color: var(--gold); margin-bottom: 36px; }
-
-.timeline { list-style: none; border-left: 2px solid rgba(255,200,87,.35); }
-.timeline li {
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  gap: 16px;
-  padding: 0 0 36px 22px;
-  position: relative;
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
 }
-.timeline li::before {
-  content: "";
+
+.days { position: relative; overflow: hidden; max-width: 720px; margin: 0 auto; padding: 30px 20px 36px; }
+.bgm {
   position: absolute;
-  left: -7px;
-  top: 10px;
-  width: 12px;
-  height: 12px;
-  background: var(--gold);
-  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  width: 340px;
+  height: 340px;
+  transform: translate(-50%, -50%);
+  opacity: .2;
+  pointer-events: none;
 }
-.day { color: var(--gold); font-weight: 600; padding-top: 2px; }
-h3 { font-size: 1.4rem; color: var(--cream); }
-h3 small { color: var(--muted); font-family: "Mukta", sans-serif; font-size: .95rem; margin-left: 6px; }
+h2 { position: relative; font-size: 1.6rem; color: var(--gold); margin-bottom: 12px; }
 
-footer { text-align: center; padding: 40px 6vw; color: var(--muted); font-size: .95rem; }
-
-/* ---------- 7. Phones + reduced motion ---------- */
-@media (max-width: 560px) {
-  .timeline li { grid-template-columns: 1fr; gap: 2px; }
-  .greet { font-size: 1.9rem; }
+.card {
+  position: relative;
+  border: 1px solid rgba(255, 200, 87, .35);
+  border-radius: 14px;
+  padding: 16px 16px 18px;
 }
+.card h3 { font-size: 1.35rem; color: var(--gold); }
+.card p { margin-top: 8px; }
+.card ul { list-style: none; margin-top: 6px; }
+.card li { margin-top: 12px; }
+.card .lab { display: block; font-size: .8rem; color: var(--gold); letter-spacing: .02em; }
+
 @media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition-duration: .01s !important; transition-delay: 0s !important; scroll-behavior: auto !important; }
+  * {
+    animation: none !important;
+    transition-duration: .01s !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
 }
