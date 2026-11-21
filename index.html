@@ -7,17 +7,20 @@
   <meta name="description" content="Turn on the Tihar lights and explore the five days of Tihar.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Mukta:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@400;600&family=Rakkas&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="scene" id="scene">
-    <svg class="mdl l" viewBox="0 0 200 200" fill="none" stroke="#ffc857" stroke-width=".9" aria-hidden="true"></svg>
-    <svg class="mdl r" viewBox="0 0 200 200" fill="none" stroke="#ffc857" stroke-width=".9" aria-hidden="true"></svg>
-    <svg class="mdl c" viewBox="0 0 200 200" fill="none" stroke="#ffc857" stroke-width="1" aria-hidden="true"></svg>
-
-    <svg class="lights" id="lights" aria-hidden="true"><g id="strands"></g></svg>
-    <canvas id="fx" aria-hidden="true"></canvas>
+    <svg class="lights" id="lights" aria-hidden="true">
+      <defs>
+        <radialGradient id="glow">
+          <stop offset="0" stop-color="#fff1a8" stop-opacity=".85"></stop>
+          <stop offset="1" stop-color="#ffc857" stop-opacity="0"></stop>
+        </radialGradient>
+      </defs>
+      <g id="strands"></g>
+    </svg>
 
     <div class="center">
       <button class="switch" id="switch" type="button" aria-pressed="false" aria-label="Turn the lights on">
@@ -29,138 +32,22 @@
       </div>
     </div>
 
-    <div class="diyos" id="diyos" aria-hidden="true"></div>
-
-    <div class="tabs" id="tabs">
-      <button class="tab on" data-i="0" type="button">
-        <svg viewBox="0 0 118 156" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="118" height="156" fill="#14182e"/>
-          <circle cx="90" cy="32" r="15" fill="#f1e6c8"/>
-          <rect y="104" width="118" height="52" fill="#3a2a2a"/>
-          <ellipse cx="52" cy="82" rx="24" ry="14" fill="#0a0a10"/>
-          <circle cx="75" cy="68" r="9" fill="#0a0a10"/>
-          <polygon points="82,66 98,71 82,74" fill="#c9a227"/>
-          <polygon points="32,78 8,94 34,88" fill="#0a0a10"/>
-          <line x1="48" y1="94" x2="48" y2="104" stroke="#0a0a10" stroke-width="2"/>
-          <line x1="58" y1="94" x2="58" y2="104" stroke="#0a0a10" stroke-width="2"/>
-          <ellipse cx="96" cy="106" rx="12" ry="4" fill="#ffc857"/>
-        </svg>
-        <span class="lb"><span class="d">Day 1</span><span class="nm">Kaag Tihar</span></span>
-      </button>
-
-      <button class="tab" data-i="1" type="button">
-        <svg viewBox="0 0 118 156" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="118" height="156" fill="#3b1d12"/>
-          <ellipse cx="34" cy="62" rx="9" ry="19" fill="#7a4a24" transform="rotate(18 34 62)"/>
-          <ellipse cx="84" cy="62" rx="9" ry="19" fill="#7a4a24" transform="rotate(-18 84 62)"/>
-          <ellipse cx="59" cy="70" rx="26" ry="24" fill="#b9824a"/>
-          <ellipse cx="59" cy="83" rx="13" ry="9" fill="#e6c79a"/>
-          <circle cx="59" cy="78" r="4" fill="#1a1010"/>
-          <circle cx="49" cy="64" r="3" fill="#1a1010"/>
-          <circle cx="69" cy="64" r="3" fill="#1a1010"/>
-          <circle cx="59" cy="50" r="3.5" fill="#d6203a"/>
-          <g fill="#ff9a1f">
-            <circle cx="20" cy="100" r="7"/>
-            <circle cx="34" cy="106" r="7" fill="#ffc857"/>
-            <circle cx="48" cy="110" r="7"/>
-            <circle cx="62" cy="111" r="7" fill="#ffc857"/>
-            <circle cx="76" cy="110" r="7"/>
-            <circle cx="90" cy="106" r="7" fill="#ffc857"/>
-            <circle cx="104" cy="100" r="7"/>
-          </g>
-        </svg>
-        <span class="lb"><span class="d">Day 2</span><span class="nm">Kukur Tihar</span></span>
-      </button>
-
-      <button class="tab" data-i="2" type="button">
-        <svg viewBox="0 0 118 156" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="118" height="156" fill="#4a0710"/>
-          <circle cx="59" cy="90" r="40" fill="#ffc857" opacity=".2"/>
-          <g fill="#f48fb1">
-            <ellipse cx="59" cy="84" rx="9" ry="22" transform="rotate(-60 59 100)"/>
-            <ellipse cx="59" cy="84" rx="9" ry="22" transform="rotate(-30 59 100)"/>
-            <ellipse cx="59" cy="84" rx="9" ry="22" transform="rotate(30 59 100)"/>
-            <ellipse cx="59" cy="84" rx="9" ry="22" transform="rotate(60 59 100)"/>
-          </g>
-          <ellipse cx="59" cy="84" rx="9" ry="22" fill="#f8bbd0"/>
-          <ellipse cx="59" cy="108" rx="24" ry="9" fill="#e8961a"/>
-          <ellipse cx="59" cy="96" rx="5" ry="10" fill="#ffe08a"/>
-          <g fill="#ffc857">
-            <circle cx="24" cy="26" r="6"/>
-            <circle cx="48" cy="18" r="5"/>
-            <circle cx="76" cy="22" r="6"/>
-            <circle cx="96" cy="32" r="5"/>
-          </g>
-        </svg>
-        <span class="lb"><span class="d">Day 3</span><span class="nm">Laxmi Puja</span></span>
-      </button>
-
-      <button class="tab" data-i="3" type="button">
-        <svg viewBox="0 0 118 156" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="118" height="156" fill="#2a0a3a"/>
-          <g fill="none" stroke="#ffc857" stroke-width="1.5">
-            <circle cx="59" cy="76" r="38"/>
-            <circle cx="59" cy="76" r="26"/>
-          </g>
-          <g fill="#ff7a2f">
-            <ellipse cx="59" cy="50" rx="5" ry="12"/>
-            <ellipse cx="59" cy="50" rx="5" ry="12" transform="rotate(90 59 76)"/>
-            <ellipse cx="59" cy="50" rx="5" ry="12" transform="rotate(180 59 76)"/>
-            <ellipse cx="59" cy="50" rx="5" ry="12" transform="rotate(270 59 76)"/>
-          </g>
-          <g fill="#ffc857">
-            <ellipse cx="59" cy="50" rx="4" ry="9" transform="rotate(45 59 76)"/>
-            <ellipse cx="59" cy="50" rx="4" ry="9" transform="rotate(135 59 76)"/>
-            <ellipse cx="59" cy="50" rx="4" ry="9" transform="rotate(225 59 76)"/>
-            <ellipse cx="59" cy="50" rx="4" ry="9" transform="rotate(315 59 76)"/>
-          </g>
-          <circle cx="59" cy="76" r="8" fill="#d6203a"/>
-          <g fill="#ffe08a">
-            <ellipse cx="20" cy="124" rx="6" ry="9"/>
-            <ellipse cx="98" cy="124" rx="6" ry="9"/>
-          </g>
-          <g fill="#e8961a">
-            <ellipse cx="20" cy="134" rx="10" ry="4"/>
-            <ellipse cx="98" cy="134" rx="10" ry="4"/>
-          </g>
-        </svg>
-        <span class="lb"><span class="d">Day 4</span><span class="nm">Goru Tihar / Mha Puja</span></span>
-      </button>
-
-      <button class="tab" data-i="4" type="button">
-        <svg viewBox="0 0 118 156" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="118" height="156" fill="#0f3d3a"/>
-          <g fill="#ff9a1f">
-            <circle cx="14" cy="24" r="6"/>
-            <circle cx="30" cy="30" r="6" fill="#ffc857"/>
-            <circle cx="46" cy="33" r="6"/>
-            <circle cx="62" cy="33" r="6" fill="#ffc857"/>
-            <circle cx="78" cy="30" r="6"/>
-            <circle cx="94" cy="24" r="6" fill="#ffc857"/>
-          </g>
-          <circle cx="59" cy="84" r="36" fill="#c9a227"/>
-          <circle cx="59" cy="84" r="30" fill="#e0b93a"/>
-          <circle cx="59" cy="84" r="7" fill="#d6203a"/>
-          <circle cx="59" cy="62" r="4" fill="#d6203a"/>
-          <circle cx="78" cy="73" r="4" fill="#ffd23a"/>
-          <circle cx="78" cy="95" r="4" fill="#2f9e44"/>
-          <circle cx="59" cy="106" r="4" fill="#3b82f6"/>
-          <circle cx="40" cy="95" r="4" fill="#ec4899"/>
-          <circle cx="40" cy="73" r="4" fill="#fff1d6"/>
-        </svg>
-        <span class="lb"><span class="d">Day 5</span><span class="nm">Bhai Tika</span></span>
-      </button>
-    </div>
+    <a class="cue" href="#about">Discover Tihar</a>
   </main>
 
   <section class="after-lit" id="about">
     <div class="days">
-      <svg class="bgm" id="bgm" viewBox="0 0 200 200" fill="none" stroke="#ffc857" stroke-width=".8" aria-hidden="true"></svg>
-      <h2>The five days</h2>
-      <div class="card" id="detail"></div>
+      <h2>Why light a diyo?</h2>
+      <p>In Tihar, light pushes the dark away. A small flame in every window tells the whole street that someone is welcome here.</p>
     </div>
   </section>
 
+  <footer class="blessing">
+    <div class="blessing-diya" id="blessingDiya" aria-hidden="true"></div>
+    <p>May the lights of Tihar brighten every corner of your life.</p>
+  </footer>
+
+  <script src="tabs.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
