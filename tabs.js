@@ -1,4 +1,3 @@
-// Day cards (tab buttons + illustrations). Loaded before script.js.
 document.getElementById("tabs").innerHTML = `
 <button class="tab on" data-i="0" type="button">
   <svg viewBox="0 0 118 156" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
