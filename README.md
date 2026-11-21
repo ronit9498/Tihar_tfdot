@@ -12,7 +12,6 @@ Flipping a light switch brings a dark night scene to life with glowing lights, d
 - Illustrated cards for each of the five days
 - Keyboard-accessible tabs and switch
 - Responsive layout for mobile and desktop
-- Respects reduced-motion settings
 
 ## Built with
 HTML, CSS and vanilla JavaScript. No frameworks or libraries.
